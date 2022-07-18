@@ -1,0 +1,20 @@
+
+{% if medclass %}
+
+<form action="" method="post">
+    {% csrf_token %}
+
+    <input type="hidden" name="pk" value={{medclass.id}}>
+    <input type="text" name="name" placeholder="Med Class name" value={{medclass.name}}><br><br>
+
+    <input type="submit" value="Edit">
+</form>
+{% else %}
+<form action="" method="post">
+    {% csrf_token %}
+
+    <input type="text" name="name" placeholder="Med Class name"><br><br>
+
+    <input type="submit" value="Add">
+</form>
+{% endif %}

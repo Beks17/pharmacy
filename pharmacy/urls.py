@@ -21,7 +21,7 @@ from rest_framework import routers, serializers, viewsets
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView, TokenVerifyView,)
 from products.models import Product
 
-from products.views import our_products_page
+from products.views import *
 
 
 # Serializers define the API representation.
@@ -39,44 +39,20 @@ class UserViewSet(viewsets.ModelViewSet):
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 
-def search_product(request):
-    search_text = request.GET.get('search-text')
 
-    html = "Salom olam"
-    
-    for item in Product.objects.all(): 
-        if search_text.lower() in item.name.lower():
-            html += f"""
-                <div class="column {item.med_class} show">
-                    <div class="content">
-                    <img src="{item.med_image}" alt="{item.med_class}" style="width:100%">
-                    <h4>{item.name}</h4>
-                    <p>{item.reg_num}</p>
-                    </div>
-                </div>
-                """
-    html += '<br>'
-    return HttpResponse(html)
-# <div class="search">
 
-#   {% for item in search %}
-#   <div class="column {{item.med_class}} show">
-#       <div class="content">
-#           <img src="{{item.med_image}}" alt="{{item.med_class}}" style="width:100%">
-#           <h4>{{item.name}}</h4>
-#           <p>{{item.reg_num}}</p>
-#       </div>
-#   </div>
-#   {% endfor %}
-
-# </div> 
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', our_products_page),
+    path('', our_products_page, name='main_products'),
     path('asd/', search_product),
+    path('add/', add_product),
+    path('medclass/', med_class, name='medclass'),
+    path('medclass/add/', medclass_add, name='medclass-add'),
+    path('medclass/edit/<int:pk>', medclass_add, name='medclass-edit'),
+    path('medclass/delete/<int:pk>', med_class_delete, name='medclass-delete'),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

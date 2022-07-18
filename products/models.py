@@ -26,4 +26,4 @@ class Product(models.Model):
     med_class = models.ForeignKey(MedClass, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return f"{self.name} {self.reg_num}"
+        return self.name

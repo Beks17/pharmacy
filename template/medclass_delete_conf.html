@@ -1,0 +1,8 @@
+<form action="" method="post">
+    {% csrf_token %}
+
+    <input type="hidden" name="pk" value={{medclass.id}}>
+    {{medclass.name}}<br><br>
+
+    <input type="submit" value="Confirm">
+</form>
