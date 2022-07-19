@@ -18,10 +18,9 @@ def our_products_page(request):
 def search_product(request):
 
     search_text = request.GET.get('search-text')
-
-    prd = Product.objects.all()
-
-    context = {'products': prd}
+    s_product = Product.objects.filter(name__icontains=search_text)
+    
+    context = {'search_products': s_product}
 
     return render(request, 'asd.html', context=context)
 
@@ -65,3 +64,4 @@ def med_class_delete(request, pk):
         medclass = get_object_or_404(MedClass, pk=request.POST.get('pk'))
         medclass.delete()
         return redirect('medclass')
+

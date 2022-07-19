@@ -29,7 +29,8 @@
 <!-- Portfolio Gallery Grid -->
 <div class="row">
 
-  {% for item in products %}
+  {% for item in search_products %}
+
   <div class="column {{item.med_class}} show">
       <div class="content">
           <img src="{{item.med_image}}" alt="{{item.med_class}}" style="width:100%">

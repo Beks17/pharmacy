@@ -47,7 +47,7 @@ router.register(r'users', UserViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', our_products_page, name='main_products'),
-    path('asd/', search_product),
+    path('asd/', search_product, name='search'),
     path('add/', add_product),
     path('medclass/', med_class, name='medclass'),
     path('medclass/add/', medclass_add, name='medclass-add'),
