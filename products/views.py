@@ -1,27 +1,24 @@
+from dataclasses import fields
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from multiprocessing import context
 from os import name
 from django.shortcuts import get_object_or_404, redirect, render
 from requests import request
-
-from products.models import MedClass, Product
+from .forms import *
+from products.models import ActiveIngredient, MedClass, Product
 
 
 # Create your views here.
 def our_products_page(request):
-
     prd = Product.objects.all()
     context = {'products': prd}
-
     return render(request, 'main_page.html', context=context)
 
 
 def search_product(request):
-
     search_text = request.GET.get('search-text')
     s_product = Product.objects.filter(name__icontains=search_text)
-    
     context = {'search_products': s_product}
-
     return render(request, 'asd.html', context=context)
 
 def add_product(request):
@@ -31,7 +28,6 @@ def add_product(request):
 def med_class(request):
     mclass = MedClass.objects.all()
     ctx = {'mclass': mclass}
-
     return render(request, template_name='medclass.html', context=ctx)
 
 def medclass_add(request, pk=0):
@@ -65,3 +61,25 @@ def med_class_delete(request, pk):
         medclass.delete()
         return redirect('medclass')
 
+class ActiveIngredientListView(ListView):
+    queryset = ActiveIngredient.objects.all()
+    template_name = 'activeingredient.html'
+    context_object_name = 'activeingredient'
+
+class ActiveIngredientCreateView(CreateView):
+    queryset = ActiveIngredient.objects.all()
+    template_name = 'activeingredient_add.html'
+    fields = "__all__"
+    success_url = '/activeingredient'
+
+class ActiveIngredientUpdateView(UpdateView):
+    queryset = ActiveIngredient.objects.all()
+    template_name = 'activeingredient_add.html'
+    fields = "__all__"
+    success_url = '/activeingredient'
+
+class ActiveIngredientDeleteView(DeleteView):
+    queryset = ActiveIngredient.objects.all()
+    template_name = 'activeingredient_delete.html'
+    fields = "__all__"
+    success_url = '/activeingredient'
