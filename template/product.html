@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy 1.0</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+<body>
+
+
+<!-- Search-products -->
+
+    <h2>CRUD</h2>
+    <a href="{% url 'product-add' %}">Add</a>
+    <br>
+    <br>
+
+
+{% for item in product %}
+
+    <h4>{{item.name}} | <a href="{% url 'product-edit' item.id %}">Edit</a> | <a href="{% url 'product-delete' item.id %}">Delete</a></h4>
+
+{% endfor %}
+
+
+</body>
+</html>

@@ -83,3 +83,26 @@ class ActiveIngredientDeleteView(DeleteView):
     template_name = 'activeingredient_delete.html'
     fields = "__all__"
     success_url = '/activeingredient'
+
+class ProductListView(ListView):
+    queryset = Product.objects.all()
+    template_name = 'product.html'
+    context_object_name = 'product'
+
+class ProductCreateView(CreateView):
+    queryset = Product.objects.all()
+    template_name = 'product_add.html'
+    fields = '__all__'
+    success_url = '/product'
+
+class ProductUpdateView(UpdateView):
+    queryset = Product.objects.all()
+    template_name = 'product_add.html'
+    fields = "__all__"
+    success_url = '/product'
+
+class ProductDeleteView(DeleteView):
+    queryset = Product.objects.all()
+    template_name = 'product_delete.html'
+    fields = "__all__"
+    success_url = '/product'

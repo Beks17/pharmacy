@@ -21,7 +21,7 @@ class Product(models.Model):
     release_form = models.CharField(max_length=30)
     min_order = models.IntegerField()
     price_exw = models.DecimalField(decimal_places=2, max_digits=10)
-    med_image = models.ImageField(upload_to="D:\pharmacy\static\img", default=0)
+    med_image = models.ImageField(upload_to="D:\pharmacy\static\img", null=True, blank=True)
     active_ingredient = models.ManyToManyField(ActiveIngredient)
     med_class = models.ForeignKey(MedClass, on_delete=models.CASCADE)
 
