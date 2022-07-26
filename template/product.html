@@ -20,10 +20,18 @@
     <br>
     <br>
 
+<form action="" method="get">
+    <input type="text" placeholder="name" name="name">
+    <input type="text" placeholder="activeingredient" name="activeingredient">
+    <input type="number" step="any" placeholder="price_from" name="price_from">
+    <input type="number" step="any" placeholder="price_to" name="price_to">
+
+    <input type="submit" value="Search">
+</form><br><br>
 
 {% for item in product %}
 
-    <h4>{{item.name}} | <a href="{% url 'product-edit' item.id %}">Edit</a> | <a href="{% url 'product-delete' item.id %}">Delete</a></h4>
+    <h4>{{item.name}} | {{item.price_exw}} | <a href="{% url 'product-edit' item.id %}">Edit</a> | <a href="{% url 'product-delete' item.id %}">Delete</a></h4>
 
 {% endfor %}
 

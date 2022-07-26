@@ -85,9 +85,23 @@ class ActiveIngredientDeleteView(DeleteView):
     success_url = '/activeingredient'
 
 class ProductListView(ListView):
-    queryset = Product.objects.all()
+    # queryset = Product.objects.all()
     template_name = 'product.html'
     context_object_name = 'product'
+
+    def get_queryset(self):
+        url_data = self.request.GET
+        q = Product.objects.all()
+        if 'name' in url_data and url_data['name']:
+            q = q.filter(name__icontains=url_data['name'])
+        if 'activeingredient' in url_data and url_data['activeingredient']:
+            q = q.filter(active_ingredient__name__icontains=url_data['activeingredient'])
+        if 'price_from' in url_data and url_data['price_from']:
+            q = q.filter(price_exw__gte=url_data['price_from'])
+        if 'price_to' in url_data and url_data['price_to']:
+            q = q.filter(price_exw__lte=url_data['price_to'])
+        return q
+
 
 class ProductCreateView(CreateView):
     queryset = Product.objects.all()
