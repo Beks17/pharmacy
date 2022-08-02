@@ -19,11 +19,11 @@
     <a href="{% url 'medclass-add' %}">Add</a>
 
 
-  {% for item in mclass %}
+    {% for item in mclass %}
 
     <h4>{{item.name}} | <a href="{% url 'medclass-edit' item.id %}">Edit</a> | <a href="{% url 'medclass-delete' item.id %}">Delete</a></h4>
 
-  {% endfor %}
+    {% endfor %}
 
 
 </body>

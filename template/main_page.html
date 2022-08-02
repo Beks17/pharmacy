@@ -16,12 +16,13 @@
         <input type="text" placeholder="Search.." name="search-text">
         <button type="submit"><i class="fa fa-search"></i></button>
     </form>
-
+    <br>
 <!-- Search-products -->
 
-    <h2>CRUD</h2>
-    <a href="{% url 'product' %}">Add</a>
-    <h2>PORTFOLIO</h2>
+    
+    <h2><a href="{% url 'product' %}">Product - CRUD&Search</a></h2>
+    <br>
+    <h2>OUR PRODUCTS</h2>
 
 <div id="myBtnContainer">
   <button class="btn active" onclick="filterSelection('all')"> Show all</button>
@@ -36,7 +37,7 @@
   {% for item in products %}
   <div class="column {{item.med_class}} show">
       <div class="content">
-          <img src="{{item.med_image}}" alt="{{item.med_class}}" style="width:100%">
+          <img src="{{item.med_image}}" alt="{{item.med_class}}" style="width:100%" height="200">
           <h4>{{item.name}}</h4>
           <p>{{item.reg_num}}</p>
       </div>

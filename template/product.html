@@ -11,16 +11,17 @@
 
 </head>
 <body>
-
+    <h2>Go to <a href="{% url 'main_products' %}">HOME PAGE</a></h2><br><br>
 
 <!-- Search-products -->
 
-    <h2>CRUD</h2>
-    <a href="{% url 'product-add' %}">Add</a>
-    <br>
+    <h2>Product - CRUD&Search</h2>
+
     <br>
 
+
 <form action="" method="get">
+    <span>Find product by:</span>
     <input type="text" placeholder="name" name="name">
     <input type="text" placeholder="activeingredient" name="activeingredient">
     <input type="number" step="any" placeholder="price_from" name="price_from">
@@ -29,9 +30,12 @@
     <input type="submit" value="Search">
 </form><br><br>
 
+<h3><a href="{% url 'product-add' %}">Add Product</a></h3>
+<br>
+
 {% for item in product %}
 
-    <h4>{{item.name}} | {{item.price_exw}} | <a href="{% url 'product-edit' item.id %}">Edit</a> | <a href="{% url 'product-delete' item.id %}">Delete</a></h4>
+    <h4>{{item.name}} | {{item.active_ingredient.first}} | {{item.price_exw}} | <a href="{% url 'product-edit' item.id %}">Edit</a> | <a href="{% url 'product-delete' item.id %}">Delete</a></h4>
 
 {% endfor %}
 
