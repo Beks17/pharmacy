@@ -2,7 +2,7 @@ from dataclasses import fields
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from multiprocessing import context
 from os import name
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 from requests import request
 from .forms import *
 from products.models import ActiveIngredient, MedClass, Product
@@ -120,3 +120,19 @@ class ProductDeleteView(DeleteView):
     template_name = 'product_delete.html'
     fields = "__all__"
     success_url = '/product'
+
+def user_register_view(request):
+    if request.method == 'GET':
+        user = UserRegisterModelForm()
+        return render(request, template_name='user_register.html', context={'form':user})
+    else:
+        request.POST.get('birth_date')
+        form = UserRegisterModelForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+
+        return HttpResponse(f"{form.is_valid()}")
+
+
+
+

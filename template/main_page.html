@@ -25,25 +25,25 @@
     <h2>OUR PRODUCTS</h2>
 
 <div id="myBtnContainer">
-  <button class="btn active" onclick="filterSelection('all')"> Show all</button>
-  <button class="btn" onclick="filterSelection('brandproduct')">Brand Product</button>
-  <button class="btn" onclick="filterSelection('generic')"> Generic</button>
+    <button class="btn active" onclick="filterSelection('all')"> Show all</button>
+    <button class="btn" onclick="filterSelection('brandproduct')">Brand Product</button>
+    <button class="btn" onclick="filterSelection('generic')"> Generic</button>
 </div>
 
 
 <!-- Portfolio Gallery Grid -->
 <div class="row">
 
-  {% for item in products %}
-  <div class="column {{item.med_class}} show">
-      <div class="content">
-          <img src="{{item.med_image}}" alt="{{item.med_class}}" style="width:100%" height="200">
-          <h4>{{item.name}}</h4>
-          <p>Reg. number: {{item.reg_num}}</p>
-          <p>Price: {{item.price_exw}}</p>
-      </div>
-  </div>
-  {% endfor %}
+{% for item in products %}
+<div class="column {{item.med_class}} show">
+    <div class="content">
+        <img src="{{item.med_image.url}}" alt="{{item.med_class}}" style="width:100%" height="200">
+        <h4>{{item.name}}</h4>
+        <p>Reg. number: {{item.reg_num}}</p>
+        <p>Price: {{item.price_exw}}</p>
+    </div>
+</div>
+{% endfor %}
 
 
 <!-- END GRID -->

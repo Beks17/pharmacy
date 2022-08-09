@@ -61,6 +61,7 @@ urlpatterns = [
     path('product/add', ProductCreateView.as_view(), name='product-add'),
     path('product/edit/<int:pk>', ProductUpdateView.as_view(), name='product-edit'),
     path('product/delete/<int:pk>', ProductDeleteView.as_view(), name='product-delete'),
+    path('register/', user_register_view, name='register'),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
