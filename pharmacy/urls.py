@@ -18,10 +18,10 @@ from django.http import HttpResponse
 from django.urls import include, path
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
-from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView, TokenVerifyView,)
 from products.models import Product
 
 from products.views import *
+from apiv0.views import *
 
 
 # Serializers define the API representation.
@@ -46,7 +46,8 @@ router.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', our_products_page, name='main_products'),
+    path('apiv0/', include('apiv0.urls')),
+    path('', our_products_page, name='home'),
     path('asd/', search_product, name='search'),
     path('add/', add_product),
     path('medclass/', med_class, name='medclass'),
@@ -63,8 +64,4 @@ urlpatterns = [
     path('product/delete/<int:pk>', ProductDeleteView.as_view(), name='product-delete'),
     path('register/', user_register_view, name='register'),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
