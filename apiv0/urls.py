@@ -24,6 +24,10 @@ from .views import *
 urlpatterns = [
     path('test-api-view/', test_api_view),
     path('product-api-view/<int:pk>', product_api_view),
+    path('product-api-view/', ProductListAPIView.as_view(), name='ListAPI'),
+    path('product-api-view/create', ProductCreateAPIView.as_view(), name='CreateAPI'),
+    path('product-api-view/update/<int:pk>', ProductUpdateAPIView.as_view(), name='UpdateAPI'),
+    path('product-api-view/delete/<int:pk>', ProductDeleteAPIView.as_view(), name='DeleteAPI'),
     path('auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     

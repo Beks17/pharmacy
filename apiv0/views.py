@@ -4,6 +4,7 @@ import json
 from products.models import Product
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from .serializers import ProductSerializer
 # Create your views here.
 
@@ -25,7 +26,7 @@ def test_api_view(request):
     return JsonResponse(f_b)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def product_api_view(request, pk=0):
     if request.method == 'GET':
         if pk == 0:
@@ -40,4 +41,40 @@ def product_api_view(request, pk=0):
             return Response({'id': sb.instance.id}, status=201)
         else:
             return Response(sb.error_messages, status=406)
+    elif request.method == 'PUT':
+        the_product = get_object_or_404(Product, pk=pk)
+        sb = ProductSerializer(data=request.data, instance=the_product)
+        if sb.is_valid():
+            sb.save()
+            return Response('Updated', status=200)
+        else:
+            return Response(sb.error_messages, status=406)
+    else:
+        the_product = get_object_or_404(Product, pk=pk)
+        the_product.delete()
+        return Response('Deleted', status=200)
 
+
+class ProductListAPIView(ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+class ProductCreateAPIView(CreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+class ProductUpdateAPIView(UpdateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = 'pk'
+
+
+class ProductDeleteAPIView(DestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = 'pk'
+
+
+    
