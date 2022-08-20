@@ -1,7 +1,10 @@
+import os
+
 from dataclasses import fields
+from django.contrib.auth.models import Group
+from django.contrib.auth import login
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from multiprocessing import context
-from os import name
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 from requests import request
 from .forms import *
@@ -121,18 +124,35 @@ class ProductDeleteView(DeleteView):
     fields = "__all__"
     success_url = '/product'
 
+# def user_register_view(request):
+#     if request.method == 'GET':
+#         user = UserRegisterModelForm()
+#         return render(request, template_name='user_register.html', context={'form':user})
+#     else:
+#         request.POST.get('birth_date')
+#         form = UserRegisterModelForm(data=request.POST)
+#         if form.is_valid():
+#             form.save()
+
+#         return HttpResponse(f"{form.is_valid()}")
+
 def user_register_view(request):
     if request.method == 'GET':
-        user = UserRegisterModelForm()
-        return render(request, template_name='user_register.html', context={'form':user})
+        form = UserRegisterModelForm()
+        return render(request, template_name='user_register.html', context={'form': form})
     else:
-        request.POST.get('birth_date')
         form = UserRegisterModelForm(data=request.POST)
-        if form.is_valid():
+        password = request.POST['password']
+        confirm = request.POST['confirm']
+        if form.is_valid() and password == confirm:
             form.save()
+            user = form.instance
+            user.groups.add(Group.objects.get(name='Buyer'))
+            user.save()
 
-        return HttpResponse(f"{form.is_valid()}")
+            login(request, user)
 
-
-
+            return redirect('product')
+        else:
+            return render(request, template_name='user_register.html', context={'form': form})
 

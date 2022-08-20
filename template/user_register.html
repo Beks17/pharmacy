@@ -1,6 +1,14 @@
-<form action="" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
+<div>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+    
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<div>
+    <p>Please, correct the errors.</p>
+    {{form.error_messages}}
+</div>
 
-    <input type="submit" value="Submit">
-</form>
+
