@@ -112,3 +112,8 @@ form.search-button::after {
   background-color: #666;
   color: white;
 }
+
+.prodtab {
+    display: block;
+    border: 1px dashed black;
+}

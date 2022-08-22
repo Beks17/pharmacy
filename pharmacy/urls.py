@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import include, path
 from django.contrib.auth.models import User
+from django.views.decorators.cache import cache_page
 from rest_framework import routers, serializers, viewsets
 from products.models import Product
+
 
 from products.views import *
 from apiv0.views import *
@@ -58,10 +60,11 @@ urlpatterns = [
     path('activeingredient/add', ActiveIngredientCreateView.as_view(), name='activeingredient-add'),
     path('activeingredient/edit/<int:pk>', ActiveIngredientUpdateView.as_view(), name='activeingredient-edit'),
     path('activeingredient/delete/<int:pk>', ActiveIngredientDeleteView.as_view(), name='activeingredient-delete'),
-    path('product/', ProductListView.as_view(), name='product'),
+    path('product/', cache_page(60*60)(ProductListView.as_view()), name='product'),
     path('product/add', ProductCreateView.as_view(), name='product-add'),
     path('product/edit/<int:pk>', ProductUpdateView.as_view(), name='product-edit'),
     path('product/delete/<int:pk>', ProductDeleteView.as_view(), name='product-delete'),
     path('register/', user_register_view, name='register'),
     path('', include(router.urls)),
+    
 ]
