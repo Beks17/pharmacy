@@ -21,11 +21,15 @@
 <br>
 <h2>
     {% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+    <p>Welcome, {{ user.first_name }}. Thanks for logging in. <a href="{% url 'logout' %}">Log Out</a></p>
+    
     {% else %}
-    <p>Welcome, new user. Please log in.</p>
+    <p>Welcome, new User. Please log in. <a href="{% url 'login' %}">Log In</a></p>
+    <p>or <a href="{% url 'register' %}">Sign Up</a></p>
+    
     {% endif %}
 </h2>
+
 
 <form action="" method="get">
     <span>Find product by:</span>
@@ -67,6 +71,7 @@
         {% if perms.home.can_change_product %}
         <a href="{% url 'product-delete' item.id %}">Delete</a>
         {% endif %}
+        
 
 
     </td>

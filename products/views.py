@@ -24,9 +24,6 @@ def search_product(request):
     context = {'search_products': s_product}
     return render(request, 'asd.html', context=context)
 
-def add_product(request):
-    print(request.POST)
-    return render(request, 'add-product.html')
 
 def med_class(request):
     mclass = MedClass.objects.all()

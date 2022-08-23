@@ -14,10 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.http import HttpResponse
 from django.urls import include, path
+from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
-from django.views.decorators.cache import cache_page
+# from django.views.decorators.cache import cache_page
 from rest_framework import routers, serializers, viewsets
 from products.models import Product
 
@@ -48,10 +48,11 @@ router.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
     path('apiv0/', include('apiv0.urls')),
     path('', our_products_page, name='home'),
+    # path('', TemplateView.as_view(template_name='main_page.html'), name='home'),
     path('asd/', search_product, name='search'),
-    path('add/', add_product),
     path('medclass/', med_class, name='medclass'),
     path('medclass/add/', medclass_add, name='medclass-add'),
     path('medclass/edit/<int:pk>', medclass_add, name='medclass-edit'),
@@ -60,7 +61,8 @@ urlpatterns = [
     path('activeingredient/add', ActiveIngredientCreateView.as_view(), name='activeingredient-add'),
     path('activeingredient/edit/<int:pk>', ActiveIngredientUpdateView.as_view(), name='activeingredient-edit'),
     path('activeingredient/delete/<int:pk>', ActiveIngredientDeleteView.as_view(), name='activeingredient-delete'),
-    path('product/', cache_page(60*60)(ProductListView.as_view()), name='product'),
+    # path('product/', cache_page(60*60)(ProductListView.as_view()), name='product'),
+    path('product/', ProductListView.as_view(), name='product'),
     path('product/add', ProductCreateView.as_view(), name='product-add'),
     path('product/edit/<int:pk>', ProductUpdateView.as_view(), name='product-edit'),
     path('product/delete/<int:pk>', ProductDeleteView.as_view(), name='product-delete'),
